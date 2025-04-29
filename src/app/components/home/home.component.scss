@@ -1,0 +1,38 @@
+.addcartbutton
+{
+  transform:translateY(120%);
+  transition: transform .7s;
+
+
+}
+
+.product:hover .addcartbutton{
+  transform:translateY(0);
+
+}
+
+
+
+owl-carousel-o img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+@media (max-width: 576px) {
+  owl-carousel-o img {
+    height: 150px;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  owl-carousel-o img {
+    height: 200px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  owl-carousel-o img {
+    height: 250px;
+  }
+}

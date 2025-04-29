@@ -1,0 +1,24 @@
+
+<section>
+
+  <div class="row g-3">
+    @for (brand of brands(); track brand._id) {
+    <div class="col-md-2">
+      <div class="category p-2  ">
+        <div>
+          <img [src]="brand.image" class="w-100" height="250px"
+            [alt]="brand.name">
+
+          <h3 class="h5 mt-2 text-main">{{brand.name | term : 2}}</h3>
+
+          <div class="d-flex justify-content-between align-items-center">
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    }
+  </div>
+</section>

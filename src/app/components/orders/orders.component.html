@@ -1,0 +1,74 @@
+<section class="bg-main-light shadow p-3 my-4 rounded-4">
+
+  <form [formGroup]="ordersForm" (ngSubmit)="submitordersForm()">
+    <h1 class="h2 text-main mb-3">Shipping Address :</h1>
+
+    @if(messageErorr){
+    <div class="alert alert-danger">{{messageErorr}}</div>
+
+    }
+    <div class="my-2">
+      <label for="details">Details</label>
+      <textarea class="form-control" formControlName="details" name="details"
+        id="details"></textarea>
+    </div>
+
+    @if(ordersForm.get("details")?.errors &&( ordersForm.get("details")?.touched
+    ||
+    ordersForm.get("details")?.dirty )){
+    <div class="ps-2">
+      @if(ordersForm.get("details")?.getError("required") ){
+      <p class="text-danger "> - details is Required</p>
+
+      }
+    </div>
+    }
+
+    <div class="my-2">
+      <label for="city">City</label>
+      <input formControlName="city" id="city" class="form-control"
+        type="text">
+
+      @if(ordersForm.get("city")?.errors &&(
+      ordersForm.get("city")?.touched || ordersForm.get("city")?.dirty) ){
+
+      <div class="ps-2">
+        @if(ordersForm.get("city")?.getError("required") &&
+        ordersForm.get("city")?.touched ){
+        <p class="text-danger "> - City is Required</p>
+
+        }
+      </div>
+      }
+
+    </div>
+
+    <div class="my-2">
+      <label for="phone">Phone</label>
+      <input formControlName="phone" id="phone" class="form-control" type="tel">
+    </div>
+
+    @if(ordersForm.get("phone")?.errors && (ordersForm.get("phone")?.touched
+    || ordersForm.get("phone")?.dirty) ){
+
+    <div class="ps-2">
+      @if(ordersForm.get("phone")?.getError("required") ){
+      <p class="text-danger "> - Phone is Required</p>
+
+      }@else if (ordersForm.get("phone")?.getError("pattern")) {
+      <p class="text-danger"> - Phone must be Egyption number</p>
+
+      }
+    </div>
+    }
+
+    <button type="submit"
+      class="btn-main d-block ms-auto">Check Out
+
+      @if (isLoading) {
+      <span class="fas fa-spin fa-spinner"></span>
+
+      }
+    </button>
+  </form>
+</section>

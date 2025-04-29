@@ -1,0 +1,15 @@
+@if (category() !== null) {
+<section class="my-3">
+  <h1 class="text-main text-center mt-2">Category Product</h1>
+  <div class="row align-items-center g-5">
+    <div class="col-md-4">
+      <img [src]="category()?.image" [alt]="category()?.name" class="w-100" />
+    </div>
+    <div class="col-md-8">
+      <h2 class="mb-3 text-muted">{{ category()?.name }}</h2>
+      <p>{{ category()?.createdAt }}</p>
+      <p>{{ category()?.updatedAt }}</p>
+    </div>
+  </div>
+</section>
+}

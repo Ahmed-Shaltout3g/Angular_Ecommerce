@@ -1,0 +1,106 @@
+<section class="bg-main-light shadow p-3 my-4 rounded-4">
+  <form [formGroup]="registerForm" (ngSubmit)="submitRegisterForm()">
+    <h1 class="h2 text-main mb-3">{{ 'REGISTER.TITLE' | translate }}</h1>
+
+    @if(messageErorr){
+    <div class="alert alert-danger">{{messageErorr}}</div>
+    }
+
+    <div class="my-2">
+      <label for="name">{{ 'REGISTER.USERNAME' | translate }}</label>
+      <input formControlName="name" id="name" class="form-control" type="text">
+    </div>
+
+    @if(registerForm.get("name")?.errors && (registerForm.get("name")?.touched
+    || registerForm.get("name")?.dirty)){
+    <div class="ps-2">
+      @if(registerForm.get("name")?.getError("required")){
+      <p class="text-danger">- {{ 'REGISTER.USERNAME_REQUIRED' | translate
+        }}</p>
+      }@else if (registerForm.get("name")?.getError("minLength")){
+      <p class="text-danger">- {{ 'REGISTER.USERNAME_MIN' | translate }}</p>
+      }@else if (registerForm.get("name")?.getError("maxLength")){
+      <p class="text-danger">- {{ 'REGISTER.USERNAME_MAX' | translate }}</p>
+      }
+    </div>
+    }
+
+    <div class="my-2">
+      <label for="email">{{ 'REGISTER.EMAIL' | translate }}</label>
+      <input formControlName="email" id="email" class="form-control"
+        type="email">
+
+      @if(registerForm.get("email")?.errors &&
+      (registerForm.get("email")?.touched || registerForm.get("email")?.dirty)){
+      <div class="ps-2">
+        @if(registerForm.get("email")?.getError("required")){
+        <p class="text-danger">- {{ 'REGISTER.EMAIL_REQUIRED' | translate }}</p>
+        }@else if (registerForm.get("email")?.getError("email")){
+        <p class="text-danger">- {{ 'REGISTER.EMAIL_INVALID' | translate }}</p>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="my-2">
+      <label for="password">{{ 'REGISTER.PASSWORD' | translate }}</label>
+      <input formControlName="password" id="password" class="form-control"
+        type="password">
+    </div>
+
+    @if(registerForm.get("password")?.errors &&
+    (registerForm.get("password")?.touched ||
+    registerForm.get("password")?.dirty)){
+    <div class="ps-2">
+      @if(registerForm.get("password")?.getError("required")){
+      <p class="text-danger">- {{ 'REGISTER.PASSWORD_REQUIRED' | translate
+        }}</p>
+      }@else if (registerForm.get("password")?.getError("pattern")){
+      <p class="text-danger">- {{ 'REGISTER.PASSWORD_PATTERN' | translate }}</p>
+      }
+    </div>
+    }
+
+    <div class="my-2">
+      <label for="rePassword">{{ 'REGISTER.REPASSWORD' | translate }}</label>
+      <input formControlName="rePassword" id="rePassword" class="form-control"
+        type="password">
+    </div>
+
+    <div class="ps-2">
+      @if(registerForm.get("rePassword")?.getError("required") &&
+      (registerForm.get("rePassword")?.touched ||
+      registerForm.get("rePassword")?.dirty)){
+      <p class="text-danger">- {{ 'REGISTER.REPASSWORD_REQUIRED' | translate
+        }}</p>
+      }@else if (registerForm.getError("missMatch") &&
+      (registerForm.get("rePassword")?.touched ||
+      registerForm.get("rePassword")?.dirty)){
+      <p class="text-danger">- {{ 'REGISTER.REPASSWORD_MATCH' | translate }}</p>
+      }
+    </div>
+
+    <div class="my-2">
+      <label for="phone">{{ 'REGISTER.PHONE' | translate }}</label>
+      <input formControlName="phone" id="phone" class="form-control" type="tel">
+    </div>
+
+    @if(registerForm.get("phone")?.errors && (registerForm.get("phone")?.touched
+    || registerForm.get("phone")?.dirty)){
+    <div class="ps-2">
+      @if(registerForm.get("phone")?.getError("required")){
+      <p class="text-danger">- {{ 'REGISTER.PHONE_REQUIRED' | translate }}</p>
+      }@else if (registerForm.get("phone")?.getError("pattern")){
+      <p class="text-danger">- {{ 'REGISTER.PHONE_INVALID' | translate }}</p>
+      }
+    </div>
+    }
+
+    <button type="submit" class="btn-main d-block ms-auto">
+      {{ 'REGISTER.BUTTON' | translate }}
+      @if (isLoading) {
+      <span class="fas fa-spin fa-spinner"></span>
+      }
+    </button>
+  </form>
+</section>

@@ -1,0 +1,79 @@
+<nav class="navbar navbar-expand-lg px-2 bg-body-tertiary">
+  <div class="container-fluid ">
+    <a class="navbar-brand" routerLink="login">
+      <img src="./assets/images/freshcart-logo.svg" alt>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse justify-content-between align-items-center  ms-lg-5 navbar-collapse"
+      id="navbarNav">
+
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active-link"
+            routerLink="home">{{ 'NAV.HOME' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active-link"
+            routerLink="categories">{{ 'NAV.CATEGORIES' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active-link"
+            routerLink="product">{{ 'NAV.PRODUCT' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active-link"
+            routerLink="brands">{{ 'NAV.BRANDS' | translate }}</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ">
+
+        <li class="nav-item ms-3">
+          <button (click)="switchLanguage()"
+            class="btn btn-sm btn-outline-primary">
+            {{ currentLanguage === 'en' ? 'غ' : 'EN' }}
+          </button>
+        </li>
+
+        <li class="nav-item">
+          <a href="https://linkedin.com/in/ahmed-shaltout-015b85252"
+            target="_blank" class="nav-link cr"><i
+              class="fa-brands fa-linkedin"></i></a>
+        </li>
+        <li class="nav-item">
+          <a href="https://ahmed-shaltout3g.github.io/-My-profile/"
+            target="_blank" class="nav-link cr"><i
+              class="fa-brands fa-facebook"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link cr"><i class="fa-brands fa-twitter"></i></a>
+        </li>
+        @if (data == null) {
+        <li class="nav-item ms-lg-3">
+          <a class="nav-link cr" routerLinkActive="active-link"
+            routerLink="login">{{ 'NAV.LOGIN' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link cr" routerLinkActive="active-link"
+            routerLink="register">{{ 'NAV.REGISTER' | translate }}</a>
+        </li>
+        } @else {
+        <li class="nav-item">
+          <a (click)="_AuthService.logOut()" class="nav-link cr">
+            {{ 'NAV.LOGOUT' | translate }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active-link"
+            routerLink="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>

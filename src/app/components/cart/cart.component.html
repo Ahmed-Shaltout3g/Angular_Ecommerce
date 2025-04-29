@@ -1,0 +1,61 @@
+<section class="bg-main-light shadow rounded-4 p-4 my-2">
+
+  <div class="d-flex justify-content-between align-items-center">
+    <h1 class="h2">{{ 'CART.SHOP_CART' | translate }}</h1>
+
+    <button (click)="clearCart()" [disabled]="check()"
+      class="btn btn-outline-danger btn-samll">{{ 'CART.CLEAR_CART' | translate
+      }}</button>
+  </div>
+
+  @if(cartDetails.products != []){
+  <p class="text-main">{{ 'CART.TOTAL_PRICE' | translate }} :
+    {{cartDetails.totalCartPrice | currency : "GBP"}} </p>
+
+  }@else {
+  <p class="text-main">{{ 'CART.TOTAL_PRICE' | translate }} : 0 EGP
+  </p>
+  }
+
+  @for (product of cartDetails.products; track product.product._id) {
+  <div class="row">
+    <!-- img -->
+    <div class="col-md-1">
+      <img class="w-100" [src]="product.product.imageCover"
+        [alt]="product.product.title">
+    </div>
+    <!-- info -->
+    <div class="col-md-11 d-flex justify-content-between align-items-center">
+      <div>
+        <h3 class="h5">{{product.product.title}}</h3>
+        <p>{{ 'CART.PRICE' | translate }} :
+          <span class="text-main">{{product.price | currency : "GBP"}}</span>
+        </p>
+        <button (click)="removeItem(product.product._id)"
+          class="cr btn m-0 p-0">
+          <i class="text-main fa-solid fa-trash-can "></i>
+          {{ 'CART.REMOVE' | translate }}
+        </button>
+      </div>
+
+      <div class="d-flex justify-content-center align-items-center">
+        <span (click)="updateCount(product.product._id,product.count + 1)"
+          class="border text-main me-2 p-1 cr rounded-1"><i
+            class="fa-solid fa-plus"></i></span>
+        <span>{{product.count}}</span>
+        <span (click)="updateCount(product.product._id,product.count - 1)"
+          class="border text-main p-1 ms-2 cr rounded-1"><i
+            class="fa-solid fa-minus"></i></span>
+      </div>
+    </div>
+    <hr class="m-1">
+  </div>
+  }@empty {
+  <p class="text-danger">{{ 'CART.EMPTY' | translate }}</p>
+  }
+
+  <button [disabled]="check()"
+    [routerLink]="['/orders', cartDetails._id]"
+    class="btn-main mt-2">{{ 'CART.MAKE_ORDER' | translate }}</button>
+
+</section>
