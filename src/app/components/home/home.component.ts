@@ -16,116 +16,72 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+  private readonly _ProductsService = inject(ProductsService);
+  private readonly _CategoriesService = inject(CategoriesService);
+  private readonly _CartService = inject(CartService);
+  private readonly _ToastrService = inject(ToastrService);
 
-  private readonly  _ProductsService = inject(ProductsService)
-  private readonly  _CategoriesService = inject(CategoriesService)
-  private readonly  _CartService = inject(CartService)
-  private readonly  _ToastrService = inject(ToastrService)
+  products: WritableSignal<Iproducts[]> = signal([]);
+  categories: WritableSignal<Icategories[]> = signal([]);
 
-
-  products :WritableSignal<Iproducts[]> = signal([])
-  categories :WritableSignal<Icategories[]> = signal([])
-
-
-   // slider categories
-   customOptions: OwlOptions = {
+  // Category slider options
+  customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: false,
-    rtl:true,
-    autoplay:true,
-    autoplaySpeed:1000,
+    rtl: true,
+    autoplay: true,
+    autoplaySpeed: 1000,
     dots: false,
     navSpeed: 500,
     navText: ['', ''],
     responsive: {
-      0: {
-        items: 1
-      },
-      400: {
-        items: 2
-      },
-      740: {
-        items: 3
-      },
-      940: {
-        items: 5
-      }
+      0: { items: 1 },
+      400: { items: 2 },
+      740: { items: 3 },
+      940: { items: 5 }
     },
     nav: true
-  }
+  };
 
-  // slider main
+  // Main slider options
   customOptionsMain: OwlOptions = {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: false,
-    rtl:true,
-    autoplay:true,
-    autoplaySpeed:1000,
+    rtl: true,
+    autoplay: true,
+    autoplaySpeed: 1000,
     dots: false,
     navSpeed: 500,
     navText: ['', ''],
     responsive: {
-      0: {
-        items: 1
-      },
-      400: {
-        items: 1
-      },
-      740: {
-        items: 1
-      },
-      940: {
-        items: 1
-      }},
+      0: { items: 1 },
+      400: { items: 1 },
+      740: { items: 1 },
+      940: { items: 1 }
+    },
     nav: true
-  }
+  };
 
-
-
-  ngOnInit() {
-
-
-
-
+  ngOnInit(): void {
     this._ProductsService.getAllProducts().subscribe({
-      next : (response)=>{
-        this.products.set(response.data)
-
-
-
-      }
-    })
-
+      next: (res) => this.products.set(res.data)
+    });
 
     this._CategoriesService.getAllcategories().subscribe({
-      next : (response)=>{
-        this.categories.set(response.data)
-
-
-
-      }
-    })
-
-
+      next: (res) => this.categories.set(res.data)
+    });
   }
 
-
-
-
-  addToCart(id:string):void{
+  addToCart(id: string): void {
     this._CartService.addProductToCart(id).subscribe({
-      next:(res)=>{
-        this._ToastrService.success(res.message,"Fresh Cart")
-        this._CartService.cartNumber.set(res.numOfCartItems)
-
+      next: (res) => {
+        this._ToastrService.success(res.message, "Fresh Cart");
+        this._CartService.cartNumber.set(res.numOfCartItems);
       }
-
-    })
+    });
   }
-
-
 }

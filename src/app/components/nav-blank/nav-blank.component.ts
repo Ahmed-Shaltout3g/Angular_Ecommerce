@@ -32,6 +32,7 @@ export class NavBlankComponent implements OnInit {
       this.data = localStorage.getItem("userData");
 
       if(this.data){
+        if (this._AuthService.userData()){
         this._CartService.getProductsCart().subscribe({
           next:(res)=>{
             this._CartService.cartNumber.set(res.numOfCartItems)
@@ -39,7 +40,7 @@ export class NavBlankComponent implements OnInit {
 
           }
         })
-
+}
       }
 
     }
